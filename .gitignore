@@ -12,3 +12,4 @@ Cargo.lock
 assets/san-miguel/*
 assets/san-miguel/*
 imgui.ini
+*.exe
