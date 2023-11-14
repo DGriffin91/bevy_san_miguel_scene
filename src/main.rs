@@ -1,8 +1,10 @@
 use std::f32::consts::PI;
 
+mod auto_instance;
 mod camera_controller;
 mod mipmap_generator;
 
+use auto_instance::{consolidate_material_instances, AutoInstancePlugin};
 use bevy::{
     core_pipeline::{
         bloom::BloomSettings,
@@ -50,12 +52,20 @@ pub fn main() {
             ..default()
         })
         .add_plugins((
+            AutoInstancePlugin,
             MipmapGeneratorPlugin,
             CameraControllerPlugin,
             TemporalAntiAliasPlugin,
         ))
         // Mipmap generation be skipped if ktx2 is used
-        .add_systems(Update, (generate_mipmaps::<StandardMaterial>, proc_scene))
+        .add_systems(
+            Update,
+            (
+                generate_mipmaps::<StandardMaterial>,
+                consolidate_material_instances::<StandardMaterial>,
+                proc_scene,
+            ),
+        )
         .add_systems(Startup, setup);
 
     app.run();
@@ -78,6 +88,8 @@ pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
             ..default()
         },
         PostProcScene,
+        //AutoInstanceMaterialRecursive, // This is maybe ok
+        //AutoInstanceMeshRecursive, // Don't use this yet
     ));
 
     // Sun
