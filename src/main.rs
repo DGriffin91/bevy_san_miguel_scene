@@ -244,8 +244,6 @@ pub fn proc_scene(
             all_children(children, &children_query, &mut |entity| {
                 if let Ok(mat_h) = has_std_mat.get(entity) {
                     if let Some(mat) = materials.get_mut(mat_h) {
-                        //mat.flip_normal_map_y = true;
-                        //dbg!("!!!");
                         match mat.alpha_mode {
                             AlphaMode::Mask(_) => {
                                 mat.diffuse_transmission = 0.6;
