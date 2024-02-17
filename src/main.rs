@@ -45,7 +45,7 @@ pub fn main() {
         })
         .add_plugins(DefaultPlugins)
         .add_plugins(LogDiagnosticsPlugin::default())
-        .add_plugins(FrameTimeDiagnosticsPlugin::default())
+        .add_plugins(FrameTimeDiagnosticsPlugin)
         // Generating mipmaps takes a minute
         .insert_resource(MipmapGeneratorSettings {
             anisotropic_filtering: 16,
@@ -103,7 +103,7 @@ pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
             )),
             directional_light: DirectionalLight {
                 color: Color::rgb_linear(0.95, 0.69268, 0.537758),
-                illuminance: 2300000.0,
+                illuminance: 2300000.0 * 0.2,
                 shadows_enabled: true,
                 shadow_depth_bias: 0.04,
                 shadow_normal_bias: 1.8,
@@ -119,6 +119,7 @@ pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
         GrifLight,
     ));
 
+    let point_spot_mult = 1000.0;
     // Sun Wall Refl
     commands.spawn((
         SpotLightBundle {
@@ -127,7 +128,7 @@ pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
             spot_light: SpotLight {
                 range: 15.0,
                 radius: 1.5,
-                intensity: 250.0,
+                intensity: 250.0 * point_spot_mult,
                 color: Color::rgb(1.75, 1.9, 1.9),
                 shadows_enabled: false,
                 inner_angle: PI * 0.4,
@@ -151,7 +152,7 @@ pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
                 spot_light: SpotLight {
                     range: 15.0,
                     radius: 4.0,
-                    intensity: 1000.0,
+                    intensity: 1000.0 * point_spot_mult,
                     color: Color::rgb(1.0, 0.85, 0.75),
                     shadows_enabled: false,
                     inner_angle: PI * 0.4,
@@ -175,7 +176,7 @@ pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
                 spot_light: SpotLight {
                     range: 3.0,
                     radius: 1.5,
-                    intensity: 150.0,
+                    intensity: 150.0 * point_spot_mult,
                     color: Color::rgb(1.0, 0.95, 0.9),
                     shadows_enabled: false,
                     inner_angle: PI * 0.4,
@@ -215,6 +216,7 @@ pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
             EnvironmentMapLight {
                 diffuse_map: asset_server.load("environment_maps/pisa_diffuse_rgb9e5_zstd.ktx2"),
                 specular_map: asset_server.load("environment_maps/pisa_specular_rgb9e5_zstd.ktx2"),
+                intensity: 1000.0,
             },
             CameraController::default().print_controls(),
         ))
