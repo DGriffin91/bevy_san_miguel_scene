@@ -45,7 +45,7 @@ pub fn main() {
         })
         .add_plugins(DefaultPlugins)
         .add_plugins(LogDiagnosticsPlugin::default())
-        .add_plugins(FrameTimeDiagnosticsPlugin::default())
+        .add_plugins(FrameTimeDiagnosticsPlugin)
         // Generating mipmaps takes a minute
         .insert_resource(MipmapGeneratorSettings {
             anisotropic_filtering: 16,

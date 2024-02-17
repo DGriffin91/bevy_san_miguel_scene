@@ -3,7 +3,8 @@ use threadpool::ThreadPool;
 use std::{fs, io::Write, process::Command, thread::available_parallelism};
 
 pub fn change_gltf_to_use_ktx2() {
-    for path in ["./assets/san-miguel/san-miguel.gltf"] {
+    {
+        let path = "./assets/san-miguel/san-miguel.gltf";
         let contents = fs::read_to_string(path).unwrap();
         let new = contents
             .replace("\"mimeType\":\"image/png\",", "")
