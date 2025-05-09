@@ -13,3 +13,5 @@ assets/san-miguel/*
 assets/san-miguel/*
 imgui.ini
 *.exe
+
+compressed_texture_cache
