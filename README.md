@@ -1,6 +1,6 @@
 # Bevy San Miguel Example Scene
 
-GLTF Version: [Discord](https://discord.com/channels/691052431525675048/1173806749413822514/1173807506133368883)
+GLTF Version: [Discord](https://discord.com/channels/691052431525675048/1173806749413822514/1173807506133368883) (Note: you may need to first join the [bevy discord](https://discord.com/invite/bevy) for the link to work correctly)
 
 Extract the files into `./assets/san-miguel/`
 
